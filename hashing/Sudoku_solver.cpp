@@ -27,15 +27,15 @@ void helper(int r,int c,vector< vector<char>> &a,map< pair<int,int>,map< int,int
         
     }
     for(int i=1; i<=9; i++){
-        int rw=r/3;
-        int cl=c/3;
-        if(!mp[{rw,cl}][i] && !row[r][i] && !col[c][i]){
-            mp[{rw,cl}][i]=1;
+        // int rw=r/3;
+        // int cl=c/3;
+        if(!mp[{r/3,c/3}][i] && !row[r][i] && !col[c][i]){
+            mp[{r/3,c/3}][i]=1;
             row[r][i]=1;
             col[c][i]=1;
             a[r][c]=i+'0';
             helper(r,c+1,a,mp,row,col);
-            mp[{rw,cl}][i]=0;
+            mp[{r/3,c/3}][i]=0;
             row[r][i]=0;
             col[c][i]=0;
             a[r][c]='.';
