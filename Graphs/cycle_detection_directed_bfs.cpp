@@ -8,7 +8,7 @@ bool iscycle(int n, vector<int>adj[]){
     vector<int>indegree(n,0);
 
     for(int i=0; i<n; i++){
-        for(auto it : adj[it]){
+        for(auto it : adj[i]){
             indegree[it]++;
         }
     }
@@ -37,6 +37,16 @@ bool iscycle(int n, vector<int>adj[]){
 }
 
 int main(){
+    int v,e;
+    cin>>e>>v;
+    vector<int>adj[v];
+    for(int i=0; i<e; i++){
+        int m,n;
+        cin>>m>>n;
+        adj[m].push_back(n);
+        adj[n].push_back(m);
+        
+    }
     
     return 0;
 }
