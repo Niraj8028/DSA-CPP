@@ -8,6 +8,7 @@ void dfs(int node,int parent,vector<int>&vis,vector<int>&time,vector<int>&low,ve
     vis[node]=1;
     time[node]=low[node]=count;
     count++;
+    int child=0;
 
     for(auto it :adj[node]){
         if(it==parent){
@@ -16,13 +17,17 @@ void dfs(int node,int parent,vector<int>&vis,vector<int>&time,vector<int>&low,ve
         if(!vis[it]){
             dfs(it,node,vis,time,low,adj,count);
             low[node]=min(low[node],low[it]);
-            if(low[it]>time[node]){
-                cout<<node<<" ";
+            if(low[it]>=time[node] && parent!=-1){
+                cout<<node;
             }
+            child++;
         }
         else{
             low[node]=min(low[node],time[it]);
         }
+    }
+    if(parent==-1 && child>1){
+        cout<<node;
     }
 }
 void findbridges(int n,vector<int>adj[]){
