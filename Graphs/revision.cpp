@@ -1,44 +1,59 @@
-#include <iostream>
-#include <vector>
-#include <climits>
+// { Driver Code Starts
+#include <bits/stdc++.h>
 using namespace std;
 
-void dfs(int node,int parent,vector<int>adj[],vector<int>&vis,int count,vector<int>&dist,vector<int>&low){
-    vis[node]=1;
-    dist[node]=low[node]=count;
-    count++;
-
-    for(auto it: adj[node]){
-        if(it==parent){
-            continue;
-        }
-        if(!vis[it]){
-            dfs(it,node,adj,vis,count,dist,low);
-            low[node]=min(low[node],low[it]);
-            if(low[it]>dist[node]){
-                cout<<node<<"->"<<it;
+ // } Driver Code Ends
+class Solution {
+  public:
+    // Function to return a list containing the DFS traversal of the graph.
+    
+    void dfs(int x,vector<int>adj[],vector<int>&vis,vector<int>&ans){
+        ans.push_back(x);
+        vis[x]=1;
+        
+        for(auto it : adj[x]){
+            if(!vis[it]){
+                dfs(it,adj,vis,ans);
             }
         }
-        else{
-            low[node]=min(low[node],dist[node]);
-        }
+        return ;
     }
-
-}
-
-void bridgesinGraph(int n, vector<int>adj[]){
-    vector<int>vis(n,0);
-    vector<int>dist(n,-1);
-    vector<int>low(n,-1);
-    
-    int count=0;
-    for(int i=0; i<n; i++){
-        if(!vis[i]){
-            dfs(i,-1,adj,vis,count,dist,low);
+    vector<int> dfsOfGraph(int V, vector<int> adj[]) {
+        vector<int>vis(V,0);
+        vector<int>ans;
+        for(int i=0; i<V; i++){
+            if(!vis[i]){
+                dfs(i,adj,vis,ans);
+            }
         }
+        return ans;
     }
-}
-int main(){
-    
+};
+
+// { Driver Code Starts.
+int main() {
+    int tc;
+    cin >> tc;
+    while (tc--) {
+        int V, E;
+        cin >> V >> E;
+
+        vector<int> adj[V];
+
+        for (int i = 0; i < E; i++) {
+            int u, v;
+            cin >> u >> v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        // string s1;
+        // cin>>s1;
+        Solution obj;
+        vector<int> ans = obj.dfsOfGraph(V, adj);
+        for (int i = 0; i < ans.size(); i++) {
+            cout << ans[i] << " ";
+        }
+        cout << endl;
+    }
     return 0;
-}
+}  // } Driver Code Ends

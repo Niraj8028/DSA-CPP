@@ -3,7 +3,9 @@
 using namespace std;
 
 bool checkBipartite(int node,vector<int>adj[],vector<int>&color){
-    color[node]=1;
+    if(color[node]==-1){
+        color[node]=1;
+    }
     
     for(auto it : adj[node]){
         if(color[it]==-1){
